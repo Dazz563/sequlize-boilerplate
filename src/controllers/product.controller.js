@@ -1,5 +1,6 @@
-const Product = require('../models/product.model');
-const Review = require('../models/review.model');
+// const Product = require('../models/product.model');
+// const Review = require('../models/review.model');
+const {Product, Review} = require('../database/models');
 
 exports.addProduct = async (req, res, next) => {
 	const {title, price, description, published} = req.body;
