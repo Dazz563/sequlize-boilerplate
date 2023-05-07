@@ -16,6 +16,16 @@ module.exports = (sequelize, DataTypes) => {
 		{
 			rating: DataTypes.INTEGER,
 			description: DataTypes.TEXT,
+			createdAt: {
+				allowNull: false,
+				type: DataTypes.DATE,
+				field: 'created_at',
+			},
+			updatedAt: {
+				allowNull: false,
+				type: DataTypes.DATE,
+				field: 'updated_at',
+			},
 		},
 		{
 			sequelize,

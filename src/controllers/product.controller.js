@@ -1,16 +1,17 @@
-// const Product = require('../models/product.model');
-// const Review = require('../models/review.model');
 const {Product, Review} = require('../database/models');
 
 exports.addProduct = async (req, res, next) => {
-	const {title, price, description, published} = req.body;
-
+	const {prodName, price, description, longDescription, image} = req.body;
+	// Thid will change when we add authentication
+	const userId = req.body.userId;
 	try {
 		const newProduct = await Product.create({
-			title,
+			prodName,
 			price,
 			description,
-			published: published ? published : false,
+			longDescription,
+			image,
+			userId,
 		});
 
 		return res.status(201).json({
@@ -19,7 +20,9 @@ exports.addProduct = async (req, res, next) => {
 		});
 	} catch (err) {
 		console.log(err);
-		next();
+		return res.status(500).json({
+			message: 'Something went wrong',
+		});
 	}
 };
 
@@ -86,25 +89,6 @@ exports.deleteProduct = async (req, res, next) => {
 
 		return res.status(200).json({
 			message: `Product with id: ${id} successfully deleted`,
-		});
-	} catch (err) {
-		console.log(err);
-		next();
-	}
-};
-
-exports.getPublishedProduct = async (req, res, next) => {
-	const id = req.params.id;
-	try {
-		const products = await Product.findAll({
-			where: {
-				published: true,
-			},
-		});
-
-		return res.status(200).json({
-			message: `All published products`,
-			data: products,
 		});
 	} catch (err) {
 		console.log(err);

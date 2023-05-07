@@ -16,7 +16,10 @@ module.exports = (sequelize, DataTypes) => {
 	}
 	Product.init(
 		{
-			name: DataTypes.STRING,
+			prodName: {
+				type: DataTypes.STRING,
+				field: 'product_name',
+			},
 			description: DataTypes.STRING,
 			longDescription: DataTypes.TEXT,
 			price: DataTypes.FLOAT,
@@ -24,14 +27,20 @@ module.exports = (sequelize, DataTypes) => {
 			createdAt: {
 				allowNull: false,
 				type: DataTypes.DATE,
-				defaultValue: sequelize.fn('NOW'),
 				field: 'created_at',
 			},
 			updatedAt: {
 				allowNull: false,
 				type: DataTypes.DATE,
-				defaultValue: sequelize.fn('NOW'),
 				field: 'updated_at',
+			},
+			userId: {
+				type: DataTypes.INTEGER,
+				field: 'user_id',
+				references: {
+					model: 'Users',
+					key: 'id',
+				},
 			},
 		},
 		{
